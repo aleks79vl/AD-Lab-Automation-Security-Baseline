@@ -1,5 +1,7 @@
 from ad.ou_manager import OUManager
 from ad.group_manager import GroupManager
+from ad.user_manager import UserManager
+
 from utils.config_loader import load_config
 from utils.logger import log_info, log_error
 from utils.report_writer import save_commands
@@ -10,14 +12,19 @@ def main():
         config = load_config()
 
         domain_dn = config["domain_dn"]
+        domain_name = config["domain"]
+
         ous = config["ous"]
         groups = config["groups"]
+        users = config["users"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
+        user_manager = UserManager(domain_dn, domain_name)
 
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
+        user_commands = user_manager.generate_create_user_commands(users)
 
         log_info("Starting command generation")
 
@@ -28,7 +35,6 @@ def main():
             log_info(f"Generated OU command: {command}")
 
         ou_output_file = save_commands(ou_commands, "ou_commands.ps1")
-
         print(f"\nOU commands saved to: {ou_output_file}")
 
         print("\nGenerated Group PowerShell commands:\n")
@@ -38,8 +44,16 @@ def main():
             log_info(f"Generated Group command: {command}")
 
         group_output_file = save_commands(group_commands, "group_commands.ps1")
-
         print(f"\nGroup commands saved to: {group_output_file}")
+
+        print("\nGenerated User PowerShell commands:\n")
+
+        for command in user_commands:
+            print(command)
+            log_info(f"Generated User command: {command}")
+
+        user_output_file = save_commands(user_commands, "user_commands.ps1")
+        print(f"\nUser commands saved to: {user_output_file}")
 
         log_info("Command generation completed")
 
@@ -50,3 +64,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    

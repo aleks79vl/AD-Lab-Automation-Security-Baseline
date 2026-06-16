@@ -31,3 +31,20 @@
 2026-06-16 19:02:52,634 - INFO - Generated Group command: New-ADGroup -Name "Marketing Users" -GroupScope Global -GroupCategory Security -Path "OU=Marketing,DC=thm,DC=local"
 2026-06-16 19:02:52,634 - INFO - Generated Group command: New-ADGroup -Name "Management Users" -GroupScope Global -GroupCategory Security -Path "OU=Management,DC=thm,DC=local"
 2026-06-16 19:02:52,634 - INFO - Command generation completed
+2026-06-16 21:27:25,044 - INFO - Starting command generation
+2026-06-16 21:27:25,044 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "THM" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 21:27:25,044 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "IT" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 21:27:25,044 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Sales" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 21:27:25,044 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Marketing" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 21:27:25,044 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Management" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 21:27:25,044 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Servers" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 21:27:25,044 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Workstations" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 21:27:25,044 - INFO - Generated Group command: New-ADGroup -Name "IT Admins" -GroupScope Global -GroupCategory Security -Path "OU=IT,DC=thm,DC=local"
+2026-06-16 21:27:25,044 - INFO - Generated Group command: New-ADGroup -Name "Sales Users" -GroupScope Global -GroupCategory Security -Path "OU=Sales,DC=thm,DC=local"
+2026-06-16 21:27:25,044 - INFO - Generated Group command: New-ADGroup -Name "Marketing Users" -GroupScope Global -GroupCategory Security -Path "OU=Marketing,DC=thm,DC=local"
+2026-06-16 21:27:25,044 - INFO - Generated Group command: New-ADGroup -Name "Management Users" -GroupScope Global -GroupCategory Security -Path "OU=Management,DC=thm,DC=local"
+2026-06-16 21:27:25,045 - INFO - Generated User command: $password = ConvertTo-SecureString "Password123!" -AsPlainText -Force; New-ADUser -Name "Phillip Brown" -GivenName "Phillip" -Surname "Brown" -SamAccountName "phillip" -UserPrincipalName "phillip@thm.local" -AccountPassword $password -Enabled $true -Path "OU=IT,DC=thm,DC=local" -ChangePasswordAtLogon $true
+2026-06-16 21:27:25,045 - INFO - Generated User command: $password = ConvertTo-SecureString "Password123!" -AsPlainText -Force; New-ADUser -Name "Sophie Williams" -GivenName "Sophie" -Surname "Williams" -SamAccountName "sophie" -UserPrincipalName "sophie@thm.local" -AccountPassword $password -Enabled $true -Path "OU=Sales,DC=thm,DC=local" -ChangePasswordAtLogon $true
+2026-06-16 21:27:25,045 - INFO - Generated User command: $password = ConvertTo-SecureString "Password123!" -AsPlainText -Force; New-ADUser -Name "Mark Spencer" -GivenName "Mark" -Surname "Spencer" -SamAccountName "mark" -UserPrincipalName "mark@thm.local" -AccountPassword $password -Enabled $true -Path "OU=Marketing,DC=thm,DC=local" -ChangePasswordAtLogon $true
+2026-06-16 21:27:25,045 - INFO - Generated User command: $password = ConvertTo-SecureString "Password123!" -AsPlainText -Force; New-ADUser -Name "Claire Wilson" -GivenName "Claire" -Surname "Wilson" -SamAccountName "claire" -UserPrincipalName "claire@thm.local" -AccountPassword $password -Enabled $true -Path "OU=Management,DC=thm,DC=local" -ChangePasswordAtLogon $true
+2026-06-16 21:27:25,045 - INFO - Command generation completed

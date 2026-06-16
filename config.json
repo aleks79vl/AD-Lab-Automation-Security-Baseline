@@ -28,6 +28,39 @@
     "ou": "Management"
   }
 ],
-  "users": [],
+  "users": [
+  {
+    "username": "phillip",
+    "first_name": "Phillip",
+    "last_name": "Brown",
+    "ou": "IT",
+    "group": "IT Admins",
+    "password": "Password123!"
+  },
+  {
+    "username": "sophie",
+    "first_name": "Sophie",
+    "last_name": "Williams",
+    "ou": "Sales",
+    "group": "Sales Users",
+    "password": "Password123!"
+  },
+  {
+    "username": "mark",
+    "first_name": "Mark",
+    "last_name": "Spencer",
+    "ou": "Marketing",
+    "group": "Marketing Users",
+    "password": "Password123!"
+  },
+  {
+    "username": "claire",
+    "first_name": "Claire",
+    "last_name": "Wilson",
+    "ou": "Management",
+    "group": "Management Users",
+    "password": "Password123!"
+  }
+],
   "computers": []
 }
