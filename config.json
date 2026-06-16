@@ -10,7 +10,24 @@
     "Servers",
     "Workstations"
   ],
-  "groups": [],
+  "groups": [
+  {
+    "name": "IT Admins",
+    "ou": "IT"
+  },
+  {
+    "name": "Sales Users",
+    "ou": "Sales"
+  },
+  {
+    "name": "Marketing Users",
+    "ou": "Marketing"
+  },
+  {
+    "name": "Management Users",
+    "ou": "Management"
+  }
+],
   "users": [],
   "computers": []
 }

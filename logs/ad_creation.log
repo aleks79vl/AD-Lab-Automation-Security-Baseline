@@ -18,3 +18,16 @@
 2026-06-16 08:54:45,440 - INFO - Generated command: New-ADOrganizationalUnit -Name "Workstations" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
 2026-06-16 08:54:45,440 - INFO - Commands saved to: docs/generated/ou_commands.ps1
 2026-06-16 08:54:45,440 - INFO - OU command generation completed
+2026-06-16 19:02:52,634 - INFO - Starting command generation
+2026-06-16 19:02:52,634 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "THM" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 19:02:52,634 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "IT" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 19:02:52,634 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Sales" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 19:02:52,634 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Marketing" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 19:02:52,634 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Management" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 19:02:52,634 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Servers" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 19:02:52,634 - INFO - Generated OU command: New-ADOrganizationalUnit -Name "Workstations" -Path "DC=thm,DC=local" -ProtectedFromAccidentalDeletion $false
+2026-06-16 19:02:52,634 - INFO - Generated Group command: New-ADGroup -Name "IT Admins" -GroupScope Global -GroupCategory Security -Path "OU=IT,DC=thm,DC=local"
+2026-06-16 19:02:52,634 - INFO - Generated Group command: New-ADGroup -Name "Sales Users" -GroupScope Global -GroupCategory Security -Path "OU=Sales,DC=thm,DC=local"
+2026-06-16 19:02:52,634 - INFO - Generated Group command: New-ADGroup -Name "Marketing Users" -GroupScope Global -GroupCategory Security -Path "OU=Marketing,DC=thm,DC=local"
+2026-06-16 19:02:52,634 - INFO - Generated Group command: New-ADGroup -Name "Management Users" -GroupScope Global -GroupCategory Security -Path "OU=Management,DC=thm,DC=local"
+2026-06-16 19:02:52,634 - INFO - Command generation completed
