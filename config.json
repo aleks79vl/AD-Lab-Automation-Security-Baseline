@@ -1,0 +1,16 @@
+{
+  "domain": "thm.local",
+  "domain_dn": "DC=thm,DC=local",
+  "ous": [
+    "THM",
+    "IT",
+    "Sales",
+    "Marketing",
+    "Management",
+    "Servers",
+    "Workstations"
+  ],
+  "groups": [],
+  "users": [],
+  "computers": []
+}
