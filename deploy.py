@@ -1,6 +1,7 @@
 from ad.ou_manager import OUManager
 from ad.group_manager import GroupManager
 from ad.user_manager import UserManager
+from ad.computer_manager import ComputerManager
 
 from utils.config_loader import load_config
 from utils.logger import log_info, log_error
@@ -17,14 +18,17 @@ def main():
         ous = config["ous"]
         groups = config["groups"]
         users = config["users"]
+        computers = config["computers"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
         user_manager = UserManager(domain_dn, domain_name)
+        computer_manager = ComputerManager(domain_dn)
 
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
         user_commands = user_manager.generate_create_user_commands(users)
+        computer_commands = computer_manager.generate_create_computer_commands(computers)
 
         log_info("Starting command generation")
 
@@ -55,6 +59,14 @@ def main():
         user_output_file = save_commands(user_commands, "user_commands.ps1")
         print(f"\nUser commands saved to: {user_output_file}")
 
+
+        for command in computer_commands:
+            print(command)
+            log_info(f"Generated Computer command: {command}")
+
+        computer_output_file = save_commands(computer_commands, "computer_commands.ps1")
+        print(f"\nComputer commands saved to: {computer_output_file}")
+
         log_info("Command generation completed")
 
     except Exception as error:
@@ -64,4 +76,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    

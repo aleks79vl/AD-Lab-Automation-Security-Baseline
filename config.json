@@ -62,5 +62,26 @@
     "password": "Password123!"
   }
 ],
-  "computers": []
+  "computers": [
+  {
+    "name": "PC-001",
+    "ou": "Workstations"
+  },
+  {
+    "name": "PC-002",
+    "ou": "Workstations"
+  },
+  {
+    "name": "PC-003",
+    "ou": "Workstations"
+  },
+  {
+    "name": "SRV-FILE01",
+    "ou": "Servers"
+  },
+  {
+    "name": "SRV-APP01",
+    "ou": "Servers"
+  }
+]
 }
