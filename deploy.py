@@ -2,6 +2,7 @@ from ad.ou_manager import OUManager
 from ad.group_manager import GroupManager
 from ad.user_manager import UserManager
 from ad.computer_manager import ComputerManager
+from ad.group_membership_manager import GroupMembershipManager
 
 from utils.config_loader import load_config
 from utils.logger import log_info, log_error
@@ -19,16 +20,19 @@ def main():
         groups = config["groups"]
         users = config["users"]
         computers = config["computers"]
+        memberships = config["memberships"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
         user_manager = UserManager(domain_dn, domain_name)
         computer_manager = ComputerManager(domain_dn)
-
+        membership_manager = GroupMembershipManager()
+         
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
         user_commands = user_manager.generate_create_user_commands(users)
         computer_commands = computer_manager.generate_create_computer_commands(computers)
+        membership_commands = membership_manager.generate_add_member_commands(memberships)
 
         log_info("Starting command generation")
 
@@ -66,6 +70,18 @@ def main():
 
         computer_output_file = save_commands(computer_commands, "computer_commands.ps1")
         print(f"\nComputer commands saved to: {computer_output_file}")
+
+        print("\nGenerated Group Membership PowerShell commands:\n")
+
+        for command in membership_commands:
+            print(command)
+            log_info(f"Generated Membership command: {command}")
+
+        membership_output_file = save_commands(
+            membership_commands,
+            "group_membership_commands.ps1")
+
+        print(f"\nGroup membership commands saved to: {membership_output_file}")
 
         log_info("Command generation completed")
 

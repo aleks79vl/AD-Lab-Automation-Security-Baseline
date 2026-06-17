@@ -83,5 +83,24 @@
     "name": "SRV-APP01",
     "ou": "Servers"
   }
+],
+"memberships": [
+  {
+    "user": "phillip",
+    "group": "IT Admins"
+  },
+  {
+    "user": "sophie",
+    "group": "Sales Users"
+  },
+  {
+    "user": "mark",
+    "group": "Marketing Users"
+  },
+  {
+    "user": "claire",
+    "group": "Management Users"
+  }
+
 ]
 }
