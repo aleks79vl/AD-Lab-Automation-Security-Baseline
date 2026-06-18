@@ -112,5 +112,15 @@
     "name": "Server Baseline",
     "target": "Servers"
   }
-]
+],
+"password_policy": {
+  "min_length": 12,
+  "complexity_enabled": true,
+  "password_history_count": 24,
+  "max_password_age_days": 90,
+  "min_password_age_days": 1,
+  "lockout_threshold": 5,
+  "lockout_duration_minutes": 30,
+  "lockout_observation_window_minutes": 30
+}
 }

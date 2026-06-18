@@ -1,0 +1,1 @@
+Set-ADDefaultDomainPasswordPolicy -Identity "thm.local" -MinPasswordLength 12 -ComplexityEnabled $true -PasswordHistoryCount 24 -MaxPasswordAge 90.00:00:00 -MinPasswordAge 1.00:00:00 -LockoutThreshold 5 -LockoutDuration 00:30:00 -LockoutObservationWindow 00:30:00
