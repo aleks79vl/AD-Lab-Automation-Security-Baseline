@@ -102,5 +102,15 @@
     "group": "Management Users"
   }
 
+],
+"gpos": [
+  {
+    "name": "Workstation Baseline",
+    "target": "Workstations"
+  },
+  {
+    "name": "Server Baseline",
+    "target": "Servers"
+  }
 ]
 }

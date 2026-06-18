@@ -3,6 +3,7 @@ from ad.group_manager import GroupManager
 from ad.user_manager import UserManager
 from ad.computer_manager import ComputerManager
 from ad.group_membership_manager import GroupMembershipManager
+from gpo.gpo_manager import GPOManager
 
 from utils.config_loader import load_config
 from utils.logger import log_info, log_error
@@ -21,18 +22,21 @@ def main():
         users = config["users"]
         computers = config["computers"]
         memberships = config["memberships"]
+        gpos = config["gpos"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
         user_manager = UserManager(domain_dn, domain_name)
         computer_manager = ComputerManager(domain_dn)
         membership_manager = GroupMembershipManager()
+        gpo_manager = GPOManager(domain_dn)
          
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
         user_commands = user_manager.generate_create_user_commands(users)
         computer_commands = computer_manager.generate_create_computer_commands(computers)
         membership_commands = membership_manager.generate_add_member_commands(memberships)
+        gpo_commands = gpo_manager.generate_gpo_commands(gpos)
 
         log_info("Starting command generation")
 
@@ -82,6 +86,14 @@ def main():
             "group_membership_commands.ps1")
 
         print(f"\nGroup membership commands saved to: {membership_output_file}")
+
+        for command in gpo_commands:
+            print(command)
+            log_info(f"Generated GPO command: {command}")
+
+        gpo_output_file = save_commands(gpo_commands, "gpo_commands.ps1")
+
+        print(f"\nGPO commands saved to: {gpo_output_file}")
 
         log_info("Command generation completed")
 
