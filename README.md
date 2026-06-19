@@ -1,7 +1,5 @@
 # AD-Lab-Automation-Security-Baseline
 
-E# AD-Lab-Automation-Security-Baseline
-
 Enterprise-style Active Directory deployment and security baseline automation toolkit.
 
 This project automates the generation of PowerShell commands for Active Directory deployment, security baseline configuration, and rollback operations using a configuration-driven architecture.
@@ -11,14 +9,14 @@ This project automates the generation of PowerShell commands for Active Director
 ## Features
 
 - Organizational Unit (OU) deployment
-- Active Directory Group creation
-- Active Directory User creation
-- Active Directory Computer creation
-- Group Membership automation
+- Active Directory group creation
+- Active Directory user creation
+- Active Directory computer creation
+- Group membership automation
 - Group Policy Object (GPO) deployment
-- Domain Password Policy generation
-- Workstation Security Baseline generation
-- Server Security Baseline generation
+- Domain password policy generation
+- Workstation security baseline generation
+- Server security baseline generation
 - Rollback command generation
 - Configuration-driven deployment
 - Audit logging and reporting
@@ -39,7 +37,9 @@ PowerShell Scripts
 Active Directory
 ```
 
-### Manager Components
+---
+
+## Manager Components
 
 | Component | Responsibility |
 |------------|---------------|
@@ -125,6 +125,39 @@ Rollback scripts are generated separately from deployment scripts to reduce oper
 
 ---
 
+## Project Structure
+
+```text
+ad/
+├── ou_manager.py
+├── group_manager.py
+├── user_manager.py
+├── computer_manager.py
+├── group_membership_manager.py
+
+gpo/
+├── gpo_manager.py
+├── password_policy_manager.py
+
+rollback/
+├── rollback_manager.py
+
+docs/
+├── generated/
+├── project_architecture.md
+├── security_baseline.md
+
+logs/
+├── ad_creation.log
+
+deploy.py
+cleanup.py
+config.json
+README.md
+```
+
+---
+
 ## Project Highlights
 
 - Configuration-driven architecture
@@ -135,76 +168,21 @@ Rollback scripts are generated separately from deployment scripts to reduce oper
 - Audit logging
 - Documentation and architecture diagrams
 
-
-
-## Project Goals
-
-This project automates the deployment and configuration of a Windows Active Directory lab environment using Python and PowerShell.
-
-The toolkit is designed to:
-
-- Create Organizational Units (OUs)
-- Create Security Groups
-- Create User Accounts
-- Create Computer Accounts
-- Deploy Group Policy Objects (GPOs)
-- Apply Security Baselines
-- Generate Audit Logs
-- Support Rollback Operations
-
 ---
 
-## Technologies
+## Future Improvements
 
-- Python 3
-- PowerShell
-- Active Directory
-- Group Policy
-- Windows Server
-- Git
-- GitHub
-
----
-
-## Planned Features
-
-### Active Directory
-
-- OU deployment
-- User creation
-- Group creation
-- Computer account creation
-
-### Group Policy
-
-- Restrict Control Panel
-- Auto Lock Screen
-- Password Policy
-- Account Lockout Policy
-
-### Security
-
-- Logging
-- Auditing
-- Validation
-- Rollback
-
----
-
-## Project Structure
-
-```text
-ad/
-gpo/
-rollback/
-utils/
-logs/
-docs/
-screenshots/
-```
+- Real GPO deployment generation
+- Security auditing policies
+- Windows Event Log collection
+- CIS Benchmark alignment
+- Splunk integration
+- Security reporting dashboard
+- Threat hunting configuration generation
 
 ---
 
 ## Status
 
-Project in development.
+Active development.
+Current version includes Active Directory deployment, group management, security baseline generation, rollback support, and audit logging.
