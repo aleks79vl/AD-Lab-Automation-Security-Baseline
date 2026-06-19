@@ -122,5 +122,12 @@
   "lockout_threshold": 5,
   "lockout_duration_minutes": 30,
   "lockout_observation_window_minutes": 30
+},
+"workstation_security": {
+  "gpo_name": "Workstation Baseline",
+  "auto_lock_seconds": 300,
+  "disable_control_panel": true,
+  "disable_cmd": true,
+  "disable_powershell": true
 }
 }

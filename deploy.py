@@ -5,6 +5,7 @@ from ad.computer_manager import ComputerManager
 from ad.group_membership_manager import GroupMembershipManager
 from gpo.gpo_manager import GPOManager
 from gpo.password_policy_manager import PasswordPolicyManager
+from gpo.workstation_policy_manager import WorkstationPolicyManager
 
 
 from utils.config_loader import load_config
@@ -26,6 +27,7 @@ def main():
         memberships = config["memberships"]
         gpos = config["gpos"]
         password_policy = config["password_policy"]
+        workstation_security = config["workstation_security"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
@@ -34,6 +36,7 @@ def main():
         membership_manager = GroupMembershipManager()
         gpo_manager = GPOManager(domain_dn)
         password_policy_manager = PasswordPolicyManager(password_policy)
+        workstation_policy_manager = WorkstationPolicyManager(workstation_security)
          
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
@@ -44,6 +47,7 @@ def main():
         password_policy_commands = [
             password_policy_manager.generate_password_policy_command()
         ]
+        workstation_policy_commands = workstation_policy_manager.generate_workstation_policy_commands()
 
         log_info("Starting command generation")
 
@@ -112,6 +116,17 @@ def main():
             )
 
         print(f"\nPassword policy commands saved to: {password_policy_output_file}")
+
+        for command in workstation_policy_commands:
+            print(command)
+            log_info(f"Generated Workstation Security command: {command}")
+
+            workstation_policy_output_file = save_commands(
+            workstation_policy_commands,
+            "workstation_security_commands.ps1"
+            )
+
+        print(f"\nWorkstation security commands saved to: {workstation_policy_output_file}")
 
         log_info("Command generation completed")
 
