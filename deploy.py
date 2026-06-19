@@ -6,6 +6,7 @@ from ad.group_membership_manager import GroupMembershipManager
 from gpo.gpo_manager import GPOManager
 from gpo.password_policy_manager import PasswordPolicyManager
 from gpo.workstation_policy_manager import WorkstationPolicyManager
+from gpo.server_policy_manager import ServerPolicyManager
 
 
 from utils.config_loader import load_config
@@ -28,6 +29,7 @@ def main():
         gpos = config["gpos"]
         password_policy = config["password_policy"]
         workstation_security = config["workstation_security"]
+        server_security = config["server_security"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
@@ -37,7 +39,8 @@ def main():
         gpo_manager = GPOManager(domain_dn)
         password_policy_manager = PasswordPolicyManager(password_policy)
         workstation_policy_manager = WorkstationPolicyManager(workstation_security)
-         
+        server_policy_manager = ServerPolicyManager(server_security)
+
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
         user_commands = user_manager.generate_create_user_commands(users)
@@ -48,6 +51,7 @@ def main():
             password_policy_manager.generate_password_policy_command()
         ]
         workstation_policy_commands = workstation_policy_manager.generate_workstation_policy_commands()
+        server_policy_commands = server_policy_manager.generate_server_policy_commands()
 
         log_info("Starting command generation")
 
@@ -127,6 +131,18 @@ def main():
             )
 
         print(f"\nWorkstation security commands saved to: {workstation_policy_output_file}")
+
+
+
+        for command in server_policy_commands:
+            print(command)
+            log_info(f"Generated Server Security command: {command}")
+
+            server_policy_output_file = save_commands(
+            server_policy_commands,
+            "server_security_commands.ps1"
+            )
+        print(f"\nServer security commands saved to: {server_policy_output_file}")
 
         log_info("Command generation completed")
 
