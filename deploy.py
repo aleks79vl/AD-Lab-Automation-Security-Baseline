@@ -7,16 +7,24 @@ from gpo.gpo_manager import GPOManager
 from gpo.password_policy_manager import PasswordPolicyManager
 from gpo.workstation_policy_manager import WorkstationPolicyManager
 from gpo.server_policy_manager import ServerPolicyManager
+from utils.validator import ConfigValidator
 
 
 from utils.config_loader import load_config
-from utils.logger import log_info, log_error
+from utils.logger import log_creation, log_error
 from utils.report_writer import save_commands
 
 
 def main():
     try:
         config = load_config()
+        validator = ConfigValidator(config)
+
+        if not validator.validate():
+            print("[ERROR] Config validation failed:")
+            for error in validator.errors:
+                print(f"- {error}")
+            return
 
         domain_dn = config["domain_dn"]
         domain_name = config["domain"]
@@ -53,13 +61,13 @@ def main():
         workstation_policy_commands = workstation_policy_manager.generate_workstation_policy_commands()
         server_policy_commands = server_policy_manager.generate_server_policy_commands()
 
-        log_info("Starting command generation")
+        log_creation("Starting command generation")
 
         print("\nGenerated OU PowerShell commands:\n")
 
         for command in ou_commands:
             print(command)
-            log_info(f"Generated OU command: {command}")
+            log_creation(f"Generated OU command: {command}")
 
         ou_output_file = save_commands(ou_commands, "ou_commands.ps1")
         print(f"\nOU commands saved to: {ou_output_file}")
@@ -68,7 +76,7 @@ def main():
 
         for command in group_commands:
             print(command)
-            log_info(f"Generated Group command: {command}")
+            log_creation(f"Generated Group command: {command}")
 
         group_output_file = save_commands(group_commands, "group_commands.ps1")
         print(f"\nGroup commands saved to: {group_output_file}")
@@ -77,7 +85,7 @@ def main():
 
         for command in user_commands:
             print(command)
-            log_info(f"Generated User command: {command}")
+            log_creation(f"Generated User command: {command}")
 
         user_output_file = save_commands(user_commands, "user_commands.ps1")
         print(f"\nUser commands saved to: {user_output_file}")
@@ -85,7 +93,7 @@ def main():
 
         for command in computer_commands:
             print(command)
-            log_info(f"Generated Computer command: {command}")
+            log_creation(f"Generated Computer command: {command}")
 
         computer_output_file = save_commands(computer_commands, "computer_commands.ps1")
         print(f"\nComputer commands saved to: {computer_output_file}")
@@ -94,7 +102,7 @@ def main():
 
         for command in membership_commands:
             print(command)
-            log_info(f"Generated Membership command: {command}")
+            log_creation(f"Generated Membership command: {command}")
 
         membership_output_file = save_commands(
             membership_commands,
@@ -104,7 +112,7 @@ def main():
 
         for command in gpo_commands:
             print(command)
-            log_info(f"Generated GPO command: {command}")
+            log_creation(f"Generated GPO command: {command}")
 
         gpo_output_file = save_commands(gpo_commands, "gpo_commands.ps1")
 
@@ -112,7 +120,7 @@ def main():
 
         for command in password_policy_commands:
             print(command)
-            log_info(f"Generated Password Policy command: {command}")
+            log_creation(f"Generated Password Policy command: {command}")
 
         password_policy_output_file = save_commands(
             password_policy_commands,
@@ -123,7 +131,7 @@ def main():
 
         for command in workstation_policy_commands:
             print(command)
-            log_info(f"Generated Workstation Security command: {command}")
+            log_creation(f"Generated Workstation Security command: {command}")
 
             workstation_policy_output_file = save_commands(
             workstation_policy_commands,
@@ -136,7 +144,7 @@ def main():
 
         for command in server_policy_commands:
             print(command)
-            log_info(f"Generated Server Security command: {command}")
+            log_creation(f"Generated Server Security command: {command}")
 
             server_policy_output_file = save_commands(
             server_policy_commands,
@@ -144,7 +152,7 @@ def main():
             )
         print(f"\nServer security commands saved to: {server_policy_output_file}")
 
-        log_info("Command generation completed")
+        log_creation("Command generation completed")
 
     except Exception as error:
         log_error(f"Deployment failed: {error}")
