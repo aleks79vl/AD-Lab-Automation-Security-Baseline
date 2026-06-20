@@ -136,5 +136,13 @@
   "disable_guest_account": true,
   "restrict_anonymous_enumeration": true,
   "smb_signing_required": true
+},
+"defender_policy": {
+  "gpo_name": "Defender Baseline",
+  "real_time_protection": true,
+  "cloud_protection": true,
+  "sample_submission": true,
+  "behavior_monitoring": true,
+  "script_scanning": true
 }
 }

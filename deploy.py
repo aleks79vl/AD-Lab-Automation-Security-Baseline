@@ -7,6 +7,7 @@ from gpo.gpo_manager import GPOManager
 from gpo.password_policy_manager import PasswordPolicyManager
 from gpo.workstation_policy_manager import WorkstationPolicyManager
 from gpo.server_policy_manager import ServerPolicyManager
+from gpo.defender_policy_manager import DefenderPolicyManager
 from utils.validator import ConfigValidator
 from utils.report_manager import ReportManager
 
@@ -39,6 +40,7 @@ def main():
         password_policy = config["password_policy"]
         workstation_security = config["workstation_security"]
         server_security = config["server_security"]
+        defender_policy = config["defender_policy"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
@@ -49,6 +51,7 @@ def main():
         password_policy_manager = PasswordPolicyManager(password_policy)
         workstation_policy_manager = WorkstationPolicyManager(workstation_security)
         server_policy_manager = ServerPolicyManager(server_security)
+        defender_policy_manager = DefenderPolicyManager(defender_policy)
 
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
@@ -61,6 +64,9 @@ def main():
         ]
         workstation_policy_commands = workstation_policy_manager.generate_workstation_policy_commands()
         server_policy_commands = server_policy_manager.generate_server_policy_commands()
+        defender_policy_commands = (
+            defender_policy_manager.generate_defender_policy_commands()
+        )
 
         log_creation("Starting command generation")
 
@@ -153,6 +159,22 @@ def main():
             )
         print(f"\nServer security commands saved to: {server_policy_output_file}")
 
+        defender_policy_output_file = save_commands(
+            defender_policy_commands,
+            "defender_policy_commands.ps1"
+            )
+
+        print(f"\nDefender policy commands saved to: {defender_policy_output_file}")
+        log_creation(f"Defender policy commands saved to: {defender_policy_output_file}")
+
+        print("\nGenerated Defender Policy PowerShell commands:\n")
+
+        for command in defender_policy_commands:
+            print(command)
+            log_creation(f"Generated Defender Policy command: {command}")
+
+   
+
         log_creation("Command generation completed")
 
         generated_files = [
@@ -164,7 +186,8 @@ def main():
             str(gpo_output_file),
             str(password_policy_output_file),
             str(workstation_policy_output_file),
-            str(server_policy_output_file)
+            str(server_policy_output_file),
+            str(defender_policy_output_file),
             ]
         
         report_manager = ReportManager()
