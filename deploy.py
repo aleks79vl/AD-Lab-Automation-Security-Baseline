@@ -11,6 +11,7 @@ from gpo.defender_policy_manager import DefenderPolicyManager
 from utils.validator import ConfigValidator
 from utils.report_manager import ReportManager
 from gpo.account_lockout_policy_manager import AccountLockoutPolicyManager
+from gpo.audit_policy_manager import AuditPolicyManager
 
 
 from utils.config_loader import load_config
@@ -43,6 +44,7 @@ def main():
         server_security = config["server_security"]
         defender_policy = config["defender_policy"]
         account_lockout_policy = config["account_lockout_policy"]
+        audit_policy = config["audit_policy"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
@@ -55,6 +57,7 @@ def main():
         server_policy_manager = ServerPolicyManager(server_security)
         defender_policy_manager = DefenderPolicyManager(defender_policy)
         account_lockout_policy_manager = AccountLockoutPolicyManager(account_lockout_policy)
+        audit_policy_manager = AuditPolicyManager(audit_policy)
 
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
@@ -72,6 +75,9 @@ def main():
         )
         account_lockout_policy_commands = (
             account_lockout_policy_manager.generate_account_lockout_policy_commands()
+        )
+        audit_policy_commands = (
+            audit_policy_manager.generate_audit_policy_commands()
         )
 
         log_creation("Starting command generation")
@@ -183,6 +189,20 @@ def main():
             account_lockout_policy_commands,
             "account_lockout_policy_commands.ps1"
             )
+        
+        print("\nGenerated Audit Policy commands:\n")
+
+        for command in audit_policy_commands:
+            print(command)
+            log_creation(f"Generated Audit Policy command: {command}")
+
+        audit_policy_output_file = save_commands(
+            audit_policy_commands,
+            "audit_policy_commands.ps1"
+            )
+
+        print(f"\nAudit policy commands saved to: {audit_policy_output_file}")
+        log_creation(f"Audit policy commands saved to: {audit_policy_output_file}")
 
         print(f"\nAccount lockout policy commands saved to: {account_lockout_policy_output_file}")
         log_creation(f"Account lockout policy commands saved to: {account_lockout_policy_output_file}")
@@ -202,7 +222,8 @@ def main():
             str(workstation_policy_output_file),
             str(server_policy_output_file),
             str(defender_policy_output_file),
-            str(account_lockout_policy_output_file)
+            str(account_lockout_policy_output_file),
+            str(audit_policy_output_file)
             ]
         
         report_manager = ReportManager()

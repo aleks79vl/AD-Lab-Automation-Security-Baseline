@@ -150,5 +150,14 @@
   "lockout_threshold": 5,
   "lockout_duration_minutes": 15,
   "lockout_observation_window_minutes": 15
+},
+"audit_policy": {
+  "logon_events": true,
+  "account_logon_events": true,
+  "account_management": true,
+  "directory_service_changes": true,
+  "policy_changes": true,
+  "object_access": true,
+  "process_creation": true
 }
 }
