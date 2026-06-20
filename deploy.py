@@ -10,6 +10,7 @@ from gpo.server_policy_manager import ServerPolicyManager
 from gpo.defender_policy_manager import DefenderPolicyManager
 from utils.validator import ConfigValidator
 from utils.report_manager import ReportManager
+from gpo.account_lockout_policy_manager import AccountLockoutPolicyManager
 
 
 from utils.config_loader import load_config
@@ -41,6 +42,7 @@ def main():
         workstation_security = config["workstation_security"]
         server_security = config["server_security"]
         defender_policy = config["defender_policy"]
+        account_lockout_policy = config["account_lockout_policy"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
@@ -52,6 +54,7 @@ def main():
         workstation_policy_manager = WorkstationPolicyManager(workstation_security)
         server_policy_manager = ServerPolicyManager(server_security)
         defender_policy_manager = DefenderPolicyManager(defender_policy)
+        account_lockout_policy_manager = AccountLockoutPolicyManager(account_lockout_policy)
 
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
@@ -66,6 +69,9 @@ def main():
         server_policy_commands = server_policy_manager.generate_server_policy_commands()
         defender_policy_commands = (
             defender_policy_manager.generate_defender_policy_commands()
+        )
+        account_lockout_policy_commands = (
+            account_lockout_policy_manager.generate_account_lockout_policy_commands()
         )
 
         log_creation("Starting command generation")
@@ -173,6 +179,14 @@ def main():
             print(command)
             log_creation(f"Generated Defender Policy command: {command}")
 
+        account_lockout_policy_output_file = save_commands(
+            account_lockout_policy_commands,
+            "account_lockout_policy_commands.ps1"
+            )
+
+        print(f"\nAccount lockout policy commands saved to: {account_lockout_policy_output_file}")
+        log_creation(f"Account lockout policy commands saved to: {account_lockout_policy_output_file}")
+
    
 
         log_creation("Command generation completed")
@@ -188,6 +202,7 @@ def main():
             str(workstation_policy_output_file),
             str(server_policy_output_file),
             str(defender_policy_output_file),
+            str(account_lockout_policy_output_file)
             ]
         
         report_manager = ReportManager()

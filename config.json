@@ -144,5 +144,11 @@
   "sample_submission": true,
   "behavior_monitoring": true,
   "script_scanning": true
+},
+"account_lockout_policy": {
+  "domain": "thm.local",
+  "lockout_threshold": 5,
+  "lockout_duration_minutes": 15,
+  "lockout_observation_window_minutes": 15
 }
 }
