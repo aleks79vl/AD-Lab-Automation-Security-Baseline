@@ -1,0 +1,27 @@
+Deployment Report
+=================
+
+Date: 2026-06-20 15:30:15
+
+Domain: thm.local
+Domain DN: DC=thm,DC=local
+
+OU Count: 7
+Group Count: 4
+User Count: 4
+Computer Count: 5
+Membership Count: 4
+GPO Count: 2
+
+Validation Status: SUCCESS
+
+Generated Files:
+- docs/generated/ou_commands.ps1
+- docs/generated/group_commands.ps1
+- docs/generated/user_commands.ps1
+- docs/generated/computer_commands.ps1
+- docs/generated/group_membership_commands.ps1
+- docs/generated/gpo_commands.ps1
+- docs/generated/password_policy_commands.ps1
+- docs/generated/workstation_security_commands.ps1
+- docs/generated/server_security_commands.ps1

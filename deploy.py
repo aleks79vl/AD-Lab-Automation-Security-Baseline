@@ -8,6 +8,7 @@ from gpo.password_policy_manager import PasswordPolicyManager
 from gpo.workstation_policy_manager import WorkstationPolicyManager
 from gpo.server_policy_manager import ServerPolicyManager
 from utils.validator import ConfigValidator
+from utils.report_manager import ReportManager
 
 
 from utils.config_loader import load_config
@@ -153,6 +154,29 @@ def main():
         print(f"\nServer security commands saved to: {server_policy_output_file}")
 
         log_creation("Command generation completed")
+
+        generated_files = [
+            str(ou_output_file),
+            str(group_output_file),
+            str(user_output_file),
+            str(computer_output_file),
+            str(membership_output_file),
+            str(gpo_output_file),
+            str(password_policy_output_file),
+            str(workstation_policy_output_file),
+            str(server_policy_output_file)
+            ]
+        
+        report_manager = ReportManager()
+            
+        report_file = report_manager.generate_deployment_report(
+            config,
+            generated_files,
+            "SUCCESS"
+            )
+
+        print(f"\nDeployment report saved to: {report_file}")
+        log_creation(f"Deployment report saved to: {report_file}")
 
     except Exception as error:
         log_error(f"Deployment failed: {error}")
