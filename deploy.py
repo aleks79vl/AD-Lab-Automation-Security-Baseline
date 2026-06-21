@@ -12,6 +12,7 @@ from utils.validator import ConfigValidator
 from utils.report_manager import ReportManager
 from gpo.account_lockout_policy_manager import AccountLockoutPolicyManager
 from gpo.audit_policy_manager import AuditPolicyManager
+from gpo.powershell_logging_manager import PowerShellLoggingManager
 
 
 from utils.config_loader import load_config
@@ -45,6 +46,7 @@ def main():
         defender_policy = config["defender_policy"]
         account_lockout_policy = config["account_lockout_policy"]
         audit_policy = config["audit_policy"]
+        powershell_logging = config["powershell_logging"]
 
         ou_manager = OUManager(domain_dn)
         group_manager = GroupManager(domain_dn)
@@ -58,6 +60,7 @@ def main():
         defender_policy_manager = DefenderPolicyManager(defender_policy)
         account_lockout_policy_manager = AccountLockoutPolicyManager(account_lockout_policy)
         audit_policy_manager = AuditPolicyManager(audit_policy)
+        powershell_logging_manager = PowerShellLoggingManager(powershell_logging)
 
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
@@ -65,20 +68,13 @@ def main():
         computer_commands = computer_manager.generate_create_computer_commands(computers)
         membership_commands = membership_manager.generate_add_member_commands(memberships)
         gpo_commands = gpo_manager.generate_gpo_commands(gpos)
-        password_policy_commands = [
-            password_policy_manager.generate_password_policy_command()
-        ]
+        password_policy_commands = [password_policy_manager.generate_password_policy_command()]
         workstation_policy_commands = workstation_policy_manager.generate_workstation_policy_commands()
         server_policy_commands = server_policy_manager.generate_server_policy_commands()
-        defender_policy_commands = (
-            defender_policy_manager.generate_defender_policy_commands()
-        )
-        account_lockout_policy_commands = (
-            account_lockout_policy_manager.generate_account_lockout_policy_commands()
-        )
-        audit_policy_commands = (
-            audit_policy_manager.generate_audit_policy_commands()
-        )
+        defender_policy_commands = (defender_policy_manager.generate_defender_policy_commands())
+        account_lockout_policy_commands = (account_lockout_policy_manager.generate_account_lockout_policy_commands())
+        audit_policy_commands = (audit_policy_manager.generate_audit_policy_commands())
+        powershell_logging_commands = (powershell_logging_manager.generate_powershell_logging_commands())
 
         log_creation("Starting command generation")
 
@@ -165,16 +161,10 @@ def main():
             print(command)
             log_creation(f"Generated Server Security command: {command}")
 
-            server_policy_output_file = save_commands(
-            server_policy_commands,
-            "server_security_commands.ps1"
-            )
+            server_policy_output_file = save_commands(server_policy_commands,"server_security_commands.ps1")
         print(f"\nServer security commands saved to: {server_policy_output_file}")
 
-        defender_policy_output_file = save_commands(
-            defender_policy_commands,
-            "defender_policy_commands.ps1"
-            )
+        defender_policy_output_file = save_commands(defender_policy_commands,"defender_policy_commands.ps1")
 
         print(f"\nDefender policy commands saved to: {defender_policy_output_file}")
         log_creation(f"Defender policy commands saved to: {defender_policy_output_file}")
@@ -185,10 +175,7 @@ def main():
             print(command)
             log_creation(f"Generated Defender Policy command: {command}")
 
-        account_lockout_policy_output_file = save_commands(
-            account_lockout_policy_commands,
-            "account_lockout_policy_commands.ps1"
-            )
+        account_lockout_policy_output_file = save_commands(account_lockout_policy_commands,"account_lockout_policy_commands.ps1")
         
         print("\nGenerated Audit Policy commands:\n")
 
@@ -196,16 +183,19 @@ def main():
             print(command)
             log_creation(f"Generated Audit Policy command: {command}")
 
-        audit_policy_output_file = save_commands(
-            audit_policy_commands,
-            "audit_policy_commands.ps1"
-            )
+        audit_policy_output_file = save_commands(audit_policy_commands,"audit_policy_commands.ps1")
 
         print(f"\nAudit policy commands saved to: {audit_policy_output_file}")
         log_creation(f"Audit policy commands saved to: {audit_policy_output_file}")
 
         print(f"\nAccount lockout policy commands saved to: {account_lockout_policy_output_file}")
         log_creation(f"Account lockout policy commands saved to: {account_lockout_policy_output_file}")
+
+        powershell_logging_output_file = save_commands(powershell_logging_commands,"powershell_logging_commands.ps1")
+
+        print(f"\nPowerShell logging commands saved to: "f"{powershell_logging_output_file}")
+
+        log_creation(f"PowerShell logging commands saved to: "f"{powershell_logging_output_file}")
 
    
 
@@ -223,7 +213,8 @@ def main():
             str(server_policy_output_file),
             str(defender_policy_output_file),
             str(account_lockout_policy_output_file),
-            str(audit_policy_output_file)
+            str(audit_policy_output_file),
+            str(powershell_logging_output_file),
             ]
         
         report_manager = ReportManager()

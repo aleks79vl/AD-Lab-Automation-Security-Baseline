@@ -159,5 +159,10 @@
   "policy_changes": true,
   "object_access": true,
   "process_creation": true
+},
+"powershell_logging": {
+  "script_block_logging": true,
+  "module_logging": true,
+  "transcription": true
 }
 }
