@@ -2,7 +2,9 @@
 
 Enterprise-style Active Directory deployment and security baseline automation toolkit.
 
-This project automates the generation of PowerShell commands for Active Directory deployment, security baseline configuration, and rollback operations using a configuration-driven architecture.
+This project automates the generation of PowerShell commands for Active Directory deployment, security hardening, policy enforcement, validation, reporting, and rollback operations using a configuration-driven architecture.
+
+The toolkit is designed as a portfolio project for Security Engineering, Active Directory Administration, and Cybersecurity Automation.
 
 ---
 
@@ -14,12 +16,19 @@ This project automates the generation of PowerShell commands for Active Director
 - Active Directory computer creation
 - Group membership automation
 - Group Policy Object (GPO) deployment
-- Domain password policy generation
+- Password policy generation
 - Workstation security baseline generation
 - Server security baseline generation
+- Microsoft Defender baseline generation
+- Account lockout policy generation
+- Audit policy generation
+- Configuration validation engine
+- Deployment report generation
 - Rollback command generation
 - Configuration-driven deployment
-- Audit logging and reporting
+- PowerShell script generation
+- Security logging and reporting
+- Automated testing with pytest
 
 ---
 
@@ -27,14 +36,25 @@ This project automates the generation of PowerShell commands for Active Director
 
 ```text
 config.json
-     ↓
+      |
+      v
+Config Validator
+      |
+      v
 deploy.py
-     ↓
-Managers
-     ↓
-PowerShell Scripts
-     ↓
-Active Directory
+      |
+      +--------------------+
+      |                    |
+      v                    v
+AD Managers          Security Managers
+      |                    |
+      +---------+----------+
+                |
+                v
+PowerShell Script Generation
+                |
+                v
+Reports + Logs + Rollback Scripts
 ```
 
 ---
@@ -42,7 +62,7 @@ Active Directory
 ## Manager Components
 
 | Component | Responsibility |
-|------------|---------------|
+|------------|----------------|
 | OUManager | Generate OU creation commands |
 | GroupManager | Generate AD group creation commands |
 | UserManager | Generate AD user creation commands |
@@ -50,6 +70,13 @@ Active Directory
 | GroupMembershipManager | Generate group membership commands |
 | GPOManager | Generate GPO deployment commands |
 | PasswordPolicyManager | Generate password policy commands |
+| WorkstationPolicyManager | Generate workstation hardening commands |
+| ServerPolicyManager | Generate server hardening commands |
+| DefenderPolicyManager | Generate Microsoft Defender policy commands |
+| AccountLockoutPolicyManager | Generate account lockout policy commands |
+| AuditPolicyManager | Generate audit policy commands |
+| ConfigValidator | Validate deployment configuration |
+| ReportManager | Generate deployment reports |
 | RollbackManager | Generate rollback commands |
 
 ---
@@ -68,16 +95,44 @@ Generate rollback scripts:
 python3 cleanup.py
 ```
 
+Run all tests:
+
+```bash
+pytest -v
+```
+
+Compile project for syntax validation:
+
+```bash
+python3 -m py_compile deploy.py
+```
+
+---
+
+## Generated Files
+
 Generated PowerShell files are saved to:
 
 ```text
 docs/generated/
 ```
 
+Deployment reports are saved to:
+
+```text
+reports/
+```
+
 Logs are saved to:
 
 ```text
 logs/
+```
+
+Rollback scripts are saved to:
+
+```text
+rollback/
 ```
 
 ---
@@ -91,9 +146,20 @@ logs/
 - Password history: 24 passwords
 - Maximum password age: 90 days
 - Minimum password age: 1 day
-- Account lockout threshold: 5 attempts
-- Lockout duration: 30 minutes
-- Observation window: 30 minutes
+
+### Account Lockout Policy
+
+- Lockout threshold: 5 failed attempts
+- Lockout duration: 15 minutes
+- Observation window: 15 minutes
+
+### Microsoft Defender Policy
+
+- Real-time protection enabled
+- Cloud-delivered protection enabled
+- Automatic sample submission enabled
+- Behavior monitoring enabled
+- Script scanning enabled
 
 ### Workstation Security
 
@@ -104,10 +170,58 @@ logs/
 
 ### Server Security
 
-- Auto-lock screen after 5 minutes
 - Require SMB signing
 - Restrict anonymous enumeration
 - Limit blank password usage
+- Enable secure channel protections
+
+### Audit Policy
+
+- Logon auditing
+- Credential validation auditing
+- User account management auditing
+- Security group management auditing
+- Directory service change auditing
+- File system auditing
+- Process creation auditing
+
+---
+
+## Validation Engine
+
+The ConfigValidator verifies deployment configurations before script generation.
+
+Validation checks include:
+
+- Duplicate usernames
+- Duplicate group names
+- Duplicate computer names
+- Weak passwords
+- Forbidden usernames
+- Invalid OU references
+- Invalid membership references
+- Configuration consistency
+
+This prevents generation of invalid Active Directory deployment scripts.
+
+---
+
+## Reporting
+
+The ReportManager generates deployment reports containing:
+
+- Domain information
+- Domain DN
+- OU count
+- Group count
+- User count
+- Computer count
+- Membership count
+- GPO count
+- Validation status
+- Generated file inventory
+
+Reports are saved automatically during deployment.
 
 ---
 
@@ -128,32 +242,87 @@ Rollback scripts are generated separately from deployment scripts to reduce oper
 ## Project Structure
 
 ```text
-ad/
-├── ou_manager.py
-├── group_manager.py
-├── user_manager.py
-├── computer_manager.py
-├── group_membership_manager.py
+AD-Lab-Automation-Security-Baseline/
 
-gpo/
-├── gpo_manager.py
-├── password_policy_manager.py
+├── ad/
+│   ├── ou_manager.py
+│   ├── group_manager.py
+│   ├── user_manager.py
+│   ├── computer_manager.py
+│   └── group_membership_manager.py
+│
+├── gpo/
+│   ├── gpo_manager.py
+│   ├── password_policy_manager.py
+│   ├── workstation_policy_manager.py
+│   ├── server_policy_manager.py
+│   ├── defender_policy_manager.py
+│   ├── account_lockout_policy_manager.py
+│   └── audit_policy_manager.py
+│
+├── rollback/
+│   └── rollback_manager.py
+│
+├── utils/
+│   ├── config_loader.py
+│   ├── logger.py
+│   ├── validator.py
+│   └── report_manager.py
+│
+├── tests/
+│   ├── test_ou_manager.py
+│   ├── test_group_manager.py
+│   ├── test_user_manager.py
+│   ├── test_computer_manager.py
+│   ├── test_group_membership_manager.py
+│   ├── test_gpo_manager.py
+│   ├── test_password_policy_manager.py
+│   ├── test_workstation_policy_manager.py
+│   ├── test_server_policy_manager.py
+│   ├── test_defender_policy_manager.py
+│   ├── test_account_lockout_policy_manager.py
+│   ├── test_powershell_logging_manager.py
+|   ├── test_audit_policy_manager.py
+│   ├── test_report_manager.py
+│   ├── test_validator.py
+│   └── test_rollback_manager.py
+│
+├── docs/
+├── reports/
+├── logs/
+├── deploy.py
+├── cleanup.py
+├── config.json
+└── README.md
+```
 
-rollback/
-├── rollback_manager.py
+---
 
-docs/
-├── generated/
-├── project_architecture.md
-├── security_baseline.md
+## Testing
 
-logs/
-├── ad_creation.log
+Current automated test coverage:
 
-deploy.py
-cleanup.py
-config.json
-README.md
+- OU Manager
+- Group Manager
+- User Manager
+- Computer Manager
+- Group Membership Manager
+- GPO Manager
+- Password Policy Manager
+- Workstation Policy Manager
+- Server Policy Manager
+- Defender Policy Manager
+- Account Lockout Policy Manager
+- Audit Policy Manager
+- Report Manager
+- Config Validator
+- Rollback Manager
+- PowerShell Loggin Manager
+
+Current test suite:
+
+```text
+17 tests passed
 ```
 
 ---
@@ -162,27 +331,67 @@ README.md
 
 - Configuration-driven architecture
 - Modular manager design
-- Security-focused Active Directory automation
-- Deployment and rollback separation
+- Enterprise-style Active Directory deployment
+- Security baseline automation
+- Microsoft Defender hardening
+- Account lockout enforcement
+- Audit policy generation
+- Configuration validation
+- Automated reporting
+- Rollback support
+- Full pytest coverage
 - PowerShell command generation
-- Audit logging
-- Documentation and architecture diagrams
 
 ---
 
 ## Future Improvements
 
-- Real GPO deployment generation
-- Security auditing policies
-- Windows Event Log collection
+- Real GPO backup deployment
 - CIS Benchmark alignment
 - Splunk integration
-- Security reporting dashboard
+- Windows Event Forwarding support
+- Security dashboard generation
 - Threat hunting configuration generation
+- Azure AD / Entra ID integration
+- Hybrid AD deployment support
 
 ---
 
 ## Status
 
-Active development.
-Current version includes Active Directory deployment, group management, security baseline generation, rollback support, and audit logging.
+
+Completed:
+
+- Active Directory Deployment
+- Group Management
+- Computer Management
+- Membership Automation
+- GPO Deployment
+- Password Policy
+- Workstation Security Baseline
+- Server Security Baseline
+- Microsoft Defender Baseline
+- Account Lockout Policy
+- Audit Policy
+- Configuration Validation
+- Deployment Reporting
+- Rollback Generation
+- Automated Testing
+
+Current Test Status:
+
+```text
+17 PASSED
+```
+
+Project Status:
+
+```text
+Production Ready (Generation Layer)
+```
+
+Next Development Phase:
+
+```text
+ – Advanced Security & Integration
+```
