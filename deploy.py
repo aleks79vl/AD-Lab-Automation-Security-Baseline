@@ -67,6 +67,13 @@ def main():
         powershell_logging_manager = PowerShellLoggingManager(powershell_logging)
 
         security_baseline_commands = (security_baseline_manager.generate_all_security_baseline_commands())
+        password_policy_commands = security_baseline_commands["password_policy"]
+        workstation_policy_commands = security_baseline_commands["workstation_security"]
+        server_policy_commands = security_baseline_commands["server_security"]
+        defender_policy_commands = security_baseline_commands["defender_policy"]
+        account_lockout_policy_commands = security_baseline_commands["account_lockout_policy"]
+        audit_policy_commands = security_baseline_commands["audit_policy"]
+        powershell_logging_commands = security_baseline_commands["powershell_logging"]
 
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
@@ -74,13 +81,13 @@ def main():
         computer_commands = computer_manager.generate_create_computer_commands(computers)
         membership_commands = membership_manager.generate_add_member_commands(memberships)
         gpo_commands = gpo_manager.generate_gpo_commands(gpos)
-        password_policy_commands = [password_policy_manager.generate_password_policy_command()]
-        workstation_policy_commands = workstation_policy_manager.generate_workstation_policy_commands()
-        server_policy_commands = server_policy_manager.generate_server_policy_commands()
-        defender_policy_commands = (defender_policy_manager.generate_defender_policy_commands())
-        account_lockout_policy_commands = (account_lockout_policy_manager.generate_account_lockout_policy_commands())
-        audit_policy_commands = (audit_policy_manager.generate_audit_policy_commands())
-        powershell_logging_commands = (powershell_logging_manager.generate_powershell_logging_commands())
+        #password_policy_commands = [password_policy_manager.generate_password_policy_command()]
+        #workstation_policy_commands = workstation_policy_manager.generate_workstation_policy_commands()
+        #server_policy_commands = server_policy_manager.generate_server_policy_commands()
+        #defender_policy_commands = (defender_policy_manager.generate_defender_policy_commands())
+        #account_lockout_policy_commands = (account_lockout_policy_manager.generate_account_lockout_policy_commands())
+        #audit_policy_commands = (audit_policy_manager.generate_audit_policy_commands())
+        #powershell_logging_commands = (powershell_logging_manager.generate_powershell_logging_commands())
 
         log_creation("Starting command generation")
 
