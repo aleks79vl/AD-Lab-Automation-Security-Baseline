@@ -13,6 +13,7 @@ from utils.report_manager import ReportManager
 from gpo.account_lockout_policy_manager import AccountLockoutPolicyManager
 from gpo.audit_policy_manager import AuditPolicyManager
 from gpo.powershell_logging_manager import PowerShellLoggingManager
+from gpo.security_baseline_manager import SecurityBaselineManager
 
 
 from utils.config_loader import load_config
@@ -23,6 +24,7 @@ from utils.report_writer import save_commands
 def main():
     try:
         config = load_config()
+
         validator = ConfigValidator(config)
 
         if not validator.validate():
@@ -30,6 +32,8 @@ def main():
             for error in validator.errors:
                 print(f"- {error}")
             return
+
+        security_baseline_manager = SecurityBaselineManager(config)
 
         domain_dn = config["domain_dn"]
         domain_name = config["domain"]
@@ -61,6 +65,8 @@ def main():
         account_lockout_policy_manager = AccountLockoutPolicyManager(account_lockout_policy)
         audit_policy_manager = AuditPolicyManager(audit_policy)
         powershell_logging_manager = PowerShellLoggingManager(powershell_logging)
+
+        security_baseline_commands = (security_baseline_manager.generate_all_security_baseline_commands())
 
         ou_commands = ou_manager.generate_create_ou_commands(ous)
         group_commands = group_manager.generate_create_group_commands(groups)
