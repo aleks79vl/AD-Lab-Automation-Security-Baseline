@@ -29,6 +29,8 @@ The toolkit is designed as a portfolio project for Security Engineering, Active 
 - PowerShell script generation
 - Security logging and reporting
 - Automated testing with pytest
+- Security compliance report generation
+- Automated security compliance scoring
 
 ---
 
@@ -78,6 +80,7 @@ Reports + Logs + Rollback Scripts
 | ConfigValidator | Validate deployment configuration |
 | ReportManager | Generate deployment reports |
 | RollbackManager | Generate rollback commands |
+| ComplianceReportManager | Generate security compliance reports |
 
 ---
 
@@ -132,7 +135,7 @@ logs/
 Rollback scripts are saved to:
 
 ```text
-rollback/
+rollback/reports/
 ```
 
 ---
@@ -239,6 +242,24 @@ Rollback scripts are generated separately from deployment scripts to reduce oper
 
 ---
 
+### Compliance Report
+
+The toolkit automatically evaluates generated security controls and produces a compliance report.
+
+Example:
+
+Password Policy ............. PASS
+Workstation Security ........ PASS
+Server Security ............. PASS
+Defender Policy ............. PASS
+Account Lockout Policy ...... PASS
+Audit Policy ................ PASS
+PowerShell Logging .......... PASS
+
+Compliance Score: 100%
+
+---
+
 ## Project Structure
 
 ```text
@@ -289,6 +310,8 @@ AD-Lab-Automation-Security-Baseline/
 │
 ├── docs/
 ├── reports/
+|   ├── deployment_report.txt
+|   |── security_compliance_report.txt
 ├── logs/
 ├── deploy.py
 ├── cleanup.py
@@ -300,29 +323,31 @@ AD-Lab-Automation-Security-Baseline/
 
 ## Testing
 
-Current automated test coverage:
+Covered Components:
 
-- OU Manager
-- Group Manager
-- User Manager
-- Computer Manager
-- Group Membership Manager
-- GPO Manager
-- Password Policy Manager
-- Workstation Policy Manager
-- Server Policy Manager
-- Defender Policy Manager
-- Account Lockout Policy Manager
-- Audit Policy Manager
-- Report Manager
-- Config Validator
-- Rollback Manager
-- PowerShell Loggin Manager
+* OUManager
+* GroupManager
+* UserManager
+* ComputerManager
+* GroupMembershipManager
+* GPOManager
+* PasswordPolicyManager
+* WorkstationPolicyManager
+* ServerPolicyManager
+* DefenderPolicyManager
+* AccountLockoutPolicyManager
+* AuditPolicyManager
+* PowerShellLoggingManager
+* SecurityBaselineManager
+* RollbackManager
+* ReportManager
+* ComplianceReportManager
+* ConfigValidator
 
-Current test suite:
+Run All Tests
 
 ```text
-17 tests passed
+19 tests passed
 ```
 
 ---
@@ -341,6 +366,7 @@ Current test suite:
 - Rollback support
 - Full pytest coverage
 - PowerShell command generation
+- Automated security compliance scoring
 
 ---
 
