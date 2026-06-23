@@ -12,17 +12,21 @@ The toolkit is designed as a portfolio project for Security Engineering, Active 
 ![Release](https://img.shields.io/badge/Release-v1.0.0-orange)
 
 
-## Project Highlights
+### Project Highlights
 
-- Active Directory automation toolkit
-- Security baseline deployment
-- PowerShell command generation
-- Security compliance reporting
-- Deployment rollback support
+- Configuration-driven architecture
+- Modular manager design
+- Enterprise-style Active Directory deployment
+- Security baseline automation
+- Microsoft Defender hardening
+- Account lockout enforcement
+- Audit policy generation
 - Configuration validation
-- Automated deployment reports
-- 19 unit tests
-- GitHub Release workflow
+- Automated reporting
+- Rollback support
+- Full pytest coverage
+- PowerShell command generation
+- Automated security compliance scoring
 
 ---
 
@@ -378,24 +382,6 @@ All automated tests passed successfully.
 
 ---
 
-## Project Highlights
-
-- Configuration-driven architecture
-- Modular manager design
-- Enterprise-style Active Directory deployment
-- Security baseline automation
-- Microsoft Defender hardening
-- Account lockout enforcement
-- Audit policy generation
-- Configuration validation
-- Automated reporting
-- Rollback support
-- Full pytest coverage
-- PowerShell command generation
-- Automated security compliance scoring
-
----
-
 ## Future Improvements
 
 - Real GPO backup deployment
@@ -433,7 +419,7 @@ Completed:
 Current Test Status:
 
 ```text
-17 PASSED
+19 PASSED
 ```
 
 Project Status:
