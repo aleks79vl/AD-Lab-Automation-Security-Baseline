@@ -12,7 +12,7 @@ from utils.logger import log_creation, log_error
 from utils.report_writer import save_commands
 from utils.validator import ConfigValidator
 from utils.report_manager import ReportManager
-
+from utils.compliance_report_manager import ComplianceReportManager
 
 def main():
     try:
@@ -194,11 +194,16 @@ def main():
         ]
 
         report_manager = ReportManager()
+        compliance_report_manager = ComplianceReportManager()
 
         report_file = report_manager.generate_deployment_report(config,generated_files,"SUCCESS")
+        compliance_report_file = (compliance_report_manager.generate_compliance_report(security_baseline_commands))
 
         print(f"\nDeployment report saved to: {report_file}")
         log_creation(f"Deployment report saved to: {report_file}")
+        
+        print(f"\nSecurity compliance report saved to: {compliance_report_file}")
+        log_creation(f"Security compliance report saved to: {compliance_report_file}")
 
         log_creation("AD command generation completed successfully")
 
