@@ -6,6 +6,18 @@ This project automates the generation of PowerShell commands for Active Director
 
 The toolkit is designed as a portfolio project for Security Engineering, Active Directory Administration, and Cybersecurity Automation.
 
+## Project Highlights
+
+- Active Directory automation toolkit
+- Security baseline deployment
+- PowerShell command generation
+- Security compliance reporting
+- Deployment rollback support
+- Configuration validation
+- Automated deployment reports
+- 19 unit tests
+- GitHub Release workflow
+
 ---
 
 ## Features
