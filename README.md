@@ -370,6 +370,14 @@ Run All Tests
 
 ---
 
+## Test Results
+
+All automated tests passed successfully.
+
+![Pytest Results](assets/screenshots/pytest_results.png)
+
+---
+
 ## Project Highlights
 
 - Configuration-driven architecture
