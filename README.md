@@ -30,6 +30,39 @@ The toolkit is designed as a portfolio project for Security Engineering, Active 
 
 ---
 
+## Technologies Used
+
+### Programming Languages
+- Python 3
+- PowerShell
+
+### Active Directory
+- Organizational Units (OU)
+- User Management
+- Group Management
+- Group Policy Objects (GPO)
+
+### Security
+- Microsoft Defender Hardening
+- Password Policies
+- Account Lockout Policies
+- Audit Policies
+- PowerShell Logging
+
+### Development & Testing
+- Git
+- GitHub
+- Pytest
+- Configuration-Driven Architecture
+
+### Documentation
+- Markdown
+- Changelog
+- Release Notes
+- Technical Documentation
+
+---
+
 ## Features
 
 - Organizational Unit (OU) deployment

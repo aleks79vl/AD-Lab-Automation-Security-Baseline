@@ -1,0 +1,11 @@
+Security Compliance Report
+========================================
+Password Policy............... PASS
+Workstation Security.......... PASS
+Server Security............... PASS
+Defender Policy............... PASS
+Account Lockout Policy........ PASS
+Audit Policy.................. PASS
+PowerShell Logging............ PASS
+
+Compliance Score: 100%
