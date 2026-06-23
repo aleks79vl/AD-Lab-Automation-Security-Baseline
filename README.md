@@ -6,6 +6,12 @@ This project automates the generation of PowerShell commands for Active Director
 
 The toolkit is designed as a portfolio project for Security Engineering, Active Directory Administration, and Cybersecurity Automation.
 
+![Python](https://img.shields.io/badge/Python-3.13-blue)
+![Tests](https://img.shields.io/badge/Tests-19_Passed-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Release](https://img.shields.io/badge/Release-v1.0.0-orange)
+
+
 ## Project Highlights
 
 - Active Directory automation toolkit
